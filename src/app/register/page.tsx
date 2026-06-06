@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -40,14 +41,7 @@ export default function RegisterPage() {
       <div className="auth-glow" />
       <div className="auth-card">
         <div className="auth-logo">
-          <div className="auth-logo-icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
-              <path d="M20 7H4C2.9 7 2 7.9 2 9v10c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2z" fill="currentColor" opacity="0.3"/>
-              <path d="M20 7H4C2.9 7 2 7.9 2 9v10c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2z" stroke="currentColor" strokeWidth="1.5" fill="none"/>
-              <path d="M16 3H8L6 7h12l-2-4z" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinejoin="round"/>
-              <path d="M12 11v6M9 14h6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-            </svg>
-          </div>
+          <Image src="/logo.png" alt="Inventra Logo" width={48} height={48} priority style={{ objectFit: 'contain' }} />
           <span className="auth-logo-text">Inventra</span>
         </div>
 

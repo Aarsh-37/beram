@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import { useTheme } from "next-themes";
 
 const navItems = [
@@ -86,13 +87,7 @@ export default function Sidebar() {
 
       <aside className={`sidebar ${open ? "sidebar-open" : ""}`}>
         <div className="sidebar-logo">
-          <div className="sidebar-logo-icon">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-              <path d="M20 7H4C2.9 7 2 7.9 2 9v10c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2z" fill="currentColor" opacity="0.3"/>
-              <path d="M20 7H4C2.9 7 2 7.9 2 9v10c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2z" stroke="currentColor" strokeWidth="1.5" fill="none"/>
-              <path d="M16 3H8L6 7h12l-2-4z" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinejoin="round"/>
-            </svg>
-          </div>
+          <Image src="/logo.png" alt="Inventra Logo" width={36} height={36} priority style={{ objectFit: 'contain' }} />
           <span className="sidebar-logo-text">Inventra</span>
         </div>
 

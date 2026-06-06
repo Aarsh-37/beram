@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 
@@ -16,13 +17,7 @@ export default function LandingPage() {
     <div className="landing-page">
       <nav className="landing-nav">
         <div className="landing-logo">
-          <div className="landing-logo-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-              <path d="M20 7H4C2.9 7 2 7.9 2 9v10c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2z" fill="currentColor" opacity="0.3"/>
-              <path d="M20 7H4C2.9 7 2 7.9 2 9v10c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2z" stroke="currentColor" strokeWidth="1.5" fill="none"/>
-              <path d="M16 3H8L6 7h12l-2-4z" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinejoin="round"/>
-            </svg>
-          </div>
+          <Image src="/logo.png" alt="Inventra Logo" width={40} height={40} priority style={{ objectFit: 'contain' }} />
           <span className="landing-logo-text">Inventra</span>
         </div>
         <div className="landing-nav-actions">
