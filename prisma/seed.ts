@@ -24,6 +24,18 @@ async function main() {
     },
   });
 
+  // Staff user
+  const staff = await prisma.user.upsert({
+    where: { email: "staff@inventra.dev" },
+    update: {},
+    create: {
+      name: "Staff User",
+      email: "staff@inventra.dev",
+      password: hashedPassword,
+      role: "STAFF",
+    },
+  });
+
   // Categories
   const categories = await Promise.all([
     prisma.category.upsert({ where: { name: "Electronics" }, update: {}, create: { name: "Electronics" } }),
@@ -75,8 +87,10 @@ async function main() {
   }
 
   console.log("✅ Seed complete!");
-  console.log("   📧 Demo email: demo@inventra.dev");
-  console.log("   🔑 Demo password: Demo1234!");
+  console.log("   📧 Admin email: demo@inventra.dev");
+  console.log("   🔑 Admin password: Demo1234!");
+  console.log("   📧 Staff email: staff@inventra.dev");
+  console.log("   🔑 Staff password: Demo1234!");
 }
 
 main()
