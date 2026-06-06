@@ -2,31 +2,28 @@
 
 > Inventra is a modern, real-time inventory management dashboard built with Next.js 15, Tailwind CSS v4, Prisma, and Neon PostgreSQL. It allows businesses to track products, manage categories, monitor real-time stock levels, and log atomic stock adjustments.
 
-**🔗 Live Demo:** _Add your Vercel URL here after deployment_  
-**📦 GitHub:** https://github.com/Aarsh-37/beram
-
 ---
 
-## ✨ Features
+## Features
 
 ### Core
-- 🔐 **JWT Auth** — Register & login with HTTP-only cookie tokens, bcrypt password hashing
-- 📊 **Dashboard** — Summary cards (products, stock value, low stock, categories) + Recharts bar & pie charts
-- 📦 **Products CRUD** — Add, edit, delete products with Name, SKU, Category, Price, Quantity, and Low Stock Threshold
-- 🔄 **Stock Adjustments** — Stock In / Stock Out with reason notes, atomic DB transactions
-- 🚨 **Low Stock Alerts** — Pulsing red/yellow badges on product list and dashboard
-- 🏷️ **Categories** — Create, rename, and delete categories (protected if products assigned)
-- 🔍 **Search & Filter** — Search by name/SKU, filter by category and stock status
+- **JWT Auth** — Register & login with HTTP-only cookie tokens, bcrypt password hashing
+- **Dashboard** — Summary cards (products, stock value, low stock, categories) + Recharts bar & pie charts
+- **Products CRUD** — Add, edit, delete products with Name, SKU, Category, Price, Quantity, and Low Stock Threshold
+- **Stock Adjustments** — Stock In / Stock Out with reason notes, atomic DB transactions
+- **Low Stock Alerts** — Pulsing red/yellow badges on product list and dashboard
+- **Categories** — Create, rename, and delete categories (protected if products assigned)
+- **Search & Filter** — Search by name/SKU, filter by category and stock status
 
 ### Bonus
-- 📜 **Stock Movement History** — Paginated log of every stock adjustment with timestamp, user, and reason
-- 📈 **Charts** — Bar chart (stock by category) + Pie chart (category distribution) via Recharts
-- 📥 **CSV Export** — Download full product list as a properly formatted CSV file
-- 📱 **Responsive UI** — Works on mobile with a collapsible sidebar
+- **Stock Movement History** — Paginated log of every stock adjustment with timestamp, user, and reason
+- **Charts** — Bar chart (stock by category) + Pie chart (category distribution) via Recharts
+- **CSV Export** — Download full product list as a properly formatted CSV file
+- **Responsive UI** — Works on mobile with a collapsible sidebar
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 | Layer | Technology |
 |---|---|
@@ -43,7 +40,7 @@
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 - Node.js 18+
@@ -99,7 +96,7 @@ Open [http://localhost:3000](http://localhost:3000)
 
 ---
 
-## 🌐 Deployment (Vercel)
+## Deployment (Vercel)
 
 1. Push to GitHub
 2. Import the repo in [Vercel](https://vercel.com)
@@ -111,37 +108,7 @@ Open [http://localhost:3000](http://localhost:3000)
 
 ---
 
-## 📁 Project Structure
-
-```
-src/
-├── app/
-│   ├── (app)/              # Protected app shell (with sidebar)
-│   │   ├── dashboard/      # Dashboard with charts
-│   │   ├── products/       # Products CRUD + stock adjustments
-│   │   ├── categories/     # Category management
-│   │   └── movements/      # Stock movement history
-│   ├── login/              # Login page
-│   ├── register/           # Registration page
-│   └── api/                # REST API routes
-│       ├── auth/           # login, register, logout
-│       ├── products/       # CRUD + [id]
-│       ├── categories/     # CRUD + [id]
-│       ├── stock/          # Stock adjustments
-│       ├── movements/      # History
-│       ├── dashboard/      # Aggregated stats
-│       └── export/         # CSV export
-├── components/layout/      # Sidebar
-├── lib/                    # prisma, auth, validations, api-helpers
-└── middleware.ts            # JWT cookie guard
-prisma/
-├── schema.prisma
-└── seed.ts
-```
-
----
-
-## 🔒 Security
+## Security
 
 - Passwords hashed with bcrypt (cost factor 12)
 - JWT stored in `httpOnly; SameSite=Strict` cookies (no XSS access)
@@ -152,7 +119,7 @@ prisma/
 
 ---
 
-## 📋 API Endpoints
+## API Endpoints
 
 | Method | Endpoint | Description |
 |---|---|---|
