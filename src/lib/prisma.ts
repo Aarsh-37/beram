@@ -7,7 +7,9 @@ const globalForPrisma = globalThis as unknown as {
 };
 
 function createPrismaClient() {
-  const connectionString = process.env.DATABASE_URL!;
+  // Use pooled URL for runtime if available, fall back to direct URL
+  const connectionString =
+    process.env.DATABASE_URL_POOLED || process.env.DATABASE_URL!;
   const pool = new Pool({ connectionString });
   const adapter = new PrismaPg(pool);
   return new PrismaClient({
