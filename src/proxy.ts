@@ -20,13 +20,14 @@ export function proxy(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // Root redirect
+  // Root path (Landing Page)
   if (pathname === "/") {
     const token = request.cookies.get("token")?.value;
     if (token && verifyToken(token)) {
+      // If already logged in, skip landing page and go to dashboard
       return NextResponse.redirect(new URL("/dashboard", request.url));
     }
-    return NextResponse.redirect(new URL("/login", request.url));
+    return NextResponse.next();
   }
 
   // Protect all other routes
