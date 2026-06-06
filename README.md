@@ -1,4 +1,4 @@
-# StockPilot — Inventory Management System
+# Inventra — Inventory Management System
 
 > A fully-featured, real-time inventory management system built with Next.js 15, Prisma, and Neon PostgreSQL.
 
