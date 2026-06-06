@@ -86,10 +86,10 @@ export default function Sidebar() {
       {open && <div className="sidebar-overlay" onClick={() => setOpen(false)} />}
 
       <aside className={`sidebar ${open ? "sidebar-open" : ""}`}>
-        <div className="sidebar-logo">
-          <Image src="/logo.png" alt="Inventra Logo" width={36} height={36} priority style={{ objectFit: 'contain' }} />
+        <Link href="/" className="sidebar-logo" style={{ textDecoration: 'none' }}>
+          <Image src="/logo1.png" alt="Inventra Logo" width={36} height={36} priority style={{ objectFit: 'contain' }} />
           <span className="sidebar-logo-text">Inventra</span>
-        </div>
+        </Link>
 
         <nav className="sidebar-nav">
           {navItems.map((item) => {

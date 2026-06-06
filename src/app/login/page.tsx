@@ -40,10 +40,10 @@ export default function LoginPage() {
     <div className="auth-page">
       <div className="auth-glow" />
       <div className="auth-card">
-        <div className="auth-logo">
-          <Image src="/logo.png" alt="Inventra Logo" width={48} height={48} priority style={{ objectFit: 'contain' }} />
+        <Link href="/" className="auth-logo" style={{ textDecoration: 'none' }}>
+          <Image src="/logo1.png" alt="Inventra Logo" width={48} height={48} priority style={{ objectFit: 'contain' }} />
           <span className="auth-logo-text">Inventra</span>
-        </div>
+        </Link>
 
         <div className="auth-header">
           <h1 className="auth-title">Welcome back</h1>
