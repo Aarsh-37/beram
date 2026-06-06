@@ -92,6 +92,7 @@ export default function ProductsPage() {
   const [formError, setFormError] = useState("");
   const [formLoading, setFormLoading] = useState(false);
   const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null);
+  const [deleteError, setDeleteError] = useState("");
 
   const fetchProducts = useCallback(async () => {
     const params = new URLSearchParams();
@@ -159,9 +160,9 @@ export default function ProductsPage() {
         name: productForm.name,
         sku: productForm.sku,
         categoryId: productForm.categoryId,
-        price: parseFloat(productForm.price),
-        quantity: parseInt(productForm.quantity),
-        lowStockThreshold: parseInt(productForm.lowStockThreshold),
+        price: parseFloat(productForm.price) || 0,
+        quantity: parseInt(productForm.quantity) || 0,
+        lowStockThreshold: productForm.lowStockThreshold ? parseInt(productForm.lowStockThreshold) : 0,
       };
       const url = editingProduct ? `/api/products/${editingProduct.id}` : "/api/products";
       const method = editingProduct ? "PUT" : "POST";
@@ -203,8 +204,15 @@ export default function ProductsPage() {
   }
 
   async function handleDelete(id: string) {
+    setDeleteError("");
     const res = await fetch(`/api/products/${id}`, { method: "DELETE" });
-    if (res.ok) { setDeleteConfirm(null); fetchProducts(); }
+    if (res.ok) { 
+      setDeleteConfirm(null); 
+      fetchProducts(); 
+    } else {
+      const data = await res.json();
+      setDeleteError(data.error || "Failed to delete product");
+    }
   }
 
   return (
@@ -331,7 +339,7 @@ export default function ProductsPage() {
                         </button>
                         )}
                         {isAdmin && (
-                        <button className="action-btn action-btn-delete" onClick={() => setDeleteConfirm(p.id)} title="Delete">
+                        <button className="action-btn action-btn-delete" onClick={() => { setDeleteConfirm(p.id); setDeleteError(""); }} title="Delete">
                           <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
                             <path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                           </svg>
@@ -455,6 +463,7 @@ export default function ProductsPage() {
       {deleteConfirm && (
         <Modal title="Delete Product" onClose={() => setDeleteConfirm(null)}>
           <div className="modal-form">
+            {deleteError && <div className="form-error">{deleteError}</div>}
             <p style={{ color: "var(--text-secondary)", marginBottom: "1.5rem" }}>
               Are you sure you want to delete this product? This action cannot be undone and will also delete all stock movement history.
             </p>

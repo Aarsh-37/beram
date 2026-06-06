@@ -1,9 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
-import { verifyToken } from "@/lib/auth";
 
 const PUBLIC_PATHS = ["/login", "/register", "/api/auth/login", "/api/auth/register"];
 
-export function proxy(request: NextRequest) {
+export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // Allow public paths
@@ -23,7 +22,7 @@ export function proxy(request: NextRequest) {
   // Root path (Landing Page)
   if (pathname === "/") {
     const token = request.cookies.get("token")?.value;
-    if (token && verifyToken(token)) {
+    if (token) {
       // If already logged in, skip landing page and go to dashboard
       return NextResponse.redirect(new URL("/dashboard", request.url));
     }
@@ -32,7 +31,7 @@ export function proxy(request: NextRequest) {
 
   // Protect all other routes
   const token = request.cookies.get("token")?.value;
-  if (!token || !verifyToken(token)) {
+  if (!token) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
