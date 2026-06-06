@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 interface Category {
   id: string;
@@ -37,6 +38,7 @@ export default function CategoriesPage() {
   const [formLoading, setFormLoading] = useState(false);
   const [deleteConfirm, setDeleteConfirm] = useState<Category | null>(null);
   const [deleteError, setDeleteError] = useState("");
+  const router = useRouter();
 
   async function fetchCategories() {
     const res = await fetch("/api/categories");
@@ -125,13 +127,13 @@ export default function CategoriesPage() {
       ) : (
         <div className="categories-grid">
           {categories.map((c) => (
-            <div key={c.id} className="category-card">
+            <div key={c.id} className="category-card" onClick={() => router.push(`/products?categoryId=${c.id}`)} style={{ cursor: 'pointer' }}>
               <div className="category-card-top">
                 <div className="category-icon">
                   {c.name.charAt(0).toUpperCase()}
                 </div>
                 <div className="category-actions">
-                  <button className="action-btn action-btn-edit" onClick={() => openEdit(c)} title="Edit">
+                  <button className="action-btn action-btn-edit" onClick={(e) => { e.stopPropagation(); openEdit(c); }} title="Edit">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
                       <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
                       <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" stroke="currentColor" strokeWidth="1.5"/>
@@ -139,9 +141,8 @@ export default function CategoriesPage() {
                   </button>
                   <button
                     className="action-btn action-btn-delete"
-                    onClick={() => { setDeleteConfirm(c); setDeleteError(""); }}
+                    onClick={(e) => { e.stopPropagation(); setDeleteConfirm(c); setDeleteError(""); }}
                     title="Delete"
-                    disabled={c._count.products > 0}
                   >
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
                       <path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>

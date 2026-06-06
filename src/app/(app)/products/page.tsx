@@ -61,6 +61,14 @@ export default function ProductsPage() {
   const [categoryFilter, setCategoryFilter] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
 
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const catId = params.get("categoryId");
+      if (catId) setCategoryFilter(catId);
+    }
+  }, []);
+
   const [showProductModal, setShowProductModal] = useState(false);
   const [showStockModal, setShowStockModal] = useState(false);
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
