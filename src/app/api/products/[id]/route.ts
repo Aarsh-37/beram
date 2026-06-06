@@ -41,7 +41,7 @@ export async function PUT(
     const { id } = await params;
     const body = await req.json();
     const parsed = productSchema.safeParse(body);
-    if (!parsed.success) return badRequest(parsed.error.errors[0].message);
+    if (!parsed.success) return badRequest(parsed.error.issues[0].message);
 
     const existing = await prisma.product.findUnique({ where: { id } });
     if (!existing) return notFound("Product not found");

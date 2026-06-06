@@ -27,7 +27,7 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
     const parsed = categorySchema.safeParse(body);
-    if (!parsed.success) return badRequest(parsed.error.errors[0].message);
+    if (!parsed.success) return badRequest(parsed.error.issues[0].message);
 
     const existing = await prisma.category.findUnique({
       where: { name: parsed.data.name },

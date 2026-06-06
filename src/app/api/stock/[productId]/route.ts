@@ -14,7 +14,7 @@ export async function POST(
     const { productId } = await params;
     const body = await req.json();
     const parsed = stockMovementSchema.safeParse(body);
-    if (!parsed.success) return badRequest(parsed.error.errors[0].message);
+    if (!parsed.success) return badRequest(parsed.error.issues[0].message);
 
     const product = await prisma.product.findUnique({ where: { id: productId } });
     if (!product) return notFound("Product not found");

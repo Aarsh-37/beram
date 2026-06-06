@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getAuthUser, unauthorized, serverError } from "@/lib/api-helpers";
-import { Decimal } from "@prisma/client/runtime/library";
 
 export async function GET() {
   const user = await getAuthUser();
