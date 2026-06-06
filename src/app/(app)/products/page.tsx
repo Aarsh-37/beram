@@ -288,7 +288,7 @@ export default function ProductsPage() {
                     </td>
                     <td><code className="sku-badge">{p.sku}</code></td>
                     <td><span className="category-chip">{p.category.name}</span></td>
-                    <td className="price-cell">${Number(p.price).toFixed(2)}</td>
+                    <td className="price-cell">₹{Number(p.price).toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
                     <td>
                       <span className={`qty-value ${p.quantity === 0 ? "qty-danger" : p.quantity <= p.lowStockThreshold ? "qty-warning" : ""}`}>
                         {p.quantity}
@@ -353,7 +353,7 @@ export default function ProductsPage() {
             </div>
             <div className="form-row">
               <div className="form-group">
-                <label className="form-label">Price ($) *</label>
+                <label className="form-label">Price (₹) *</label>
                 <input id="product-price" type="number" step="0.01" min="0" className="form-input" value={productForm.price} onChange={(e) => setProductForm({ ...productForm, price: e.target.value })} required />
               </div>
               <div className="form-group">

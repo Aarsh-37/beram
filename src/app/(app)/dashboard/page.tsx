@@ -107,7 +107,7 @@ export default function DashboardPage() {
             />
             <SummaryCard
               title="Total Stock Value"
-              value={`$${(data?.totalStockValue ?? 0).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
+              value={`₹${(data?.totalStockValue ?? 0).toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
               sub="combined inventory value"
               color="#6366f1"
               icon={
