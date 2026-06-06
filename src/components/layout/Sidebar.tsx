@@ -93,7 +93,7 @@ export default function Sidebar() {
               <path d="M16 3H8L6 7h12l-2-4z" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinejoin="round"/>
             </svg>
           </div>
-          <span className="sidebar-logo-text">StockPilot</span>
+          <span className="sidebar-logo-text">Inventra</span>
         </div>
 
         <nav className="sidebar-nav">

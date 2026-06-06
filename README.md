@@ -1,6 +1,6 @@
 # Inventra — Inventory Management System
 
-> A fully-featured, real-time inventory management system built with Next.js 15, Prisma, and Neon PostgreSQL.
+> Inventra is a modern, real-time inventory management dashboard built with Next.js 15, Tailwind CSS v4, Prisma, and Neon PostgreSQL. It allows businesses to track products, manage categories, monitor real-time stock levels, and log atomic stock adjustments.
 
 **🔗 Live Demo:** _Add your Vercel URL here after deployment_  
 **📦 GitHub:** https://github.com/Aarsh-37/beram
@@ -86,7 +86,7 @@ pnpm db:seed
 ```
 
 This creates a demo account and sample products:
-- **Email:** `demo@stockpilot.dev`
+- **Email:** `demo@inventra.dev`
 - **Password:** `Demo1234!`
 
 ### 5. Start development server

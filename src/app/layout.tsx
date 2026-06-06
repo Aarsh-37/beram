@@ -6,9 +6,9 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "StockPilot — Inventory Management",
+  title: "Inventra — Inventory Management",
   description:
-    "StockPilot is a real-time inventory management system. Track products, manage stock levels, and monitor low stock alerts from one beautiful dashboard.",
+    "Inventra is a real-time inventory management system. Track products, manage stock levels, and monitor low stock alerts from one beautiful dashboard.",
   keywords: ["inventory", "stock management", "products", "warehouse"],
 };
 

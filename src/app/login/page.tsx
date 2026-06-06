@@ -48,7 +48,7 @@ export default function LoginPage() {
               <path d="M12 11v6M9 14h6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
             </svg>
           </div>
-          <span className="auth-logo-text">StockPilot</span>
+          <span className="auth-logo-text">Inventra</span>
         </div>
 
         <div className="auth-header">
@@ -115,7 +115,7 @@ export default function LoginPage() {
             type="button"
             className="auth-demo-fill"
             onClick={() =>
-              setForm({ email: "demo@stockpilot.dev", password: "Demo1234!" })
+              setForm({ email: "demo@inventra.dev", password: "Demo1234!" })
             }
           >
             Fill demo credentials

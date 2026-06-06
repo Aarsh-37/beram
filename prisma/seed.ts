@@ -14,11 +14,11 @@ async function main() {
   // Demo user
   const hashedPassword = await bcrypt.hash("Demo1234!", 12);
   const user = await prisma.user.upsert({
-    where: { email: "demo@stockpilot.dev" },
+    where: { email: "demo@inventra.dev" },
     update: {},
     create: {
       name: "Demo User",
-      email: "demo@stockpilot.dev",
+      email: "demo@inventra.dev",
       password: hashedPassword,
     },
   });
@@ -74,7 +74,7 @@ async function main() {
   }
 
   console.log("✅ Seed complete!");
-  console.log("   📧 Demo email: demo@stockpilot.dev");
+  console.log("   📧 Demo email: demo@inventra.dev");
   console.log("   🔑 Demo password: Demo1234!");
 }
 

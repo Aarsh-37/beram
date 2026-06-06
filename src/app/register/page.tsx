@@ -48,7 +48,7 @@ export default function RegisterPage() {
               <path d="M12 11v6M9 14h6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
             </svg>
           </div>
-          <span className="auth-logo-text">StockPilot</span>
+          <span className="auth-logo-text">Inventra</span>
         </div>
 
         <div className="auth-header">

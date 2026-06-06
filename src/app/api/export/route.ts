@@ -38,7 +38,7 @@ export async function GET() {
       status: 200,
       headers: {
         "Content-Type": "text/csv",
-        "Content-Disposition": `attachment; filename="stockpilot-export-${new Date().toISOString().split("T")[0]}.csv"`,
+        "Content-Disposition": `attachment; filename="inventra-export-${new Date().toISOString().split("T")[0]}.csv"`,
       },
     });
   } catch {
