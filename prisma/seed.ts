@@ -20,6 +20,7 @@ async function main() {
       name: "Demo User",
       email: "demo@inventra.dev",
       password: hashedPassword,
+      role: "ADMIN",
     },
   });
 

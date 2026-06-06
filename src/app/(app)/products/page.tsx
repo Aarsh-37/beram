@@ -60,8 +60,10 @@ export default function ProductsPage() {
   const [search, setSearch] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
+  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
+    setIsAdmin(localStorage.getItem("userRole") === "ADMIN");
     if (typeof window !== "undefined") {
       const params = new URLSearchParams(window.location.search);
       const catId = params.get("categoryId");
@@ -202,12 +204,14 @@ export default function ProductsPage() {
           <h1 className="page-title">Products</h1>
           <p className="page-subtitle">{products.length} product{products.length !== 1 ? "s" : ""} found</p>
         </div>
+        {isAdmin && (
         <button id="add-product-btn" className="btn btn-primary" onClick={openAdd}>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
             <path d="M12 5v14M5 12h14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
           </svg>
           Add Product
         </button>
+        )}
       </div>
 
       {/* Filters */}
@@ -308,17 +312,21 @@ export default function ProductsPage() {
                             <path d="M12 5v14M5 12h14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
                           </svg>
                         </button>
+                        {isAdmin && (
                         <button className="action-btn action-btn-edit" onClick={() => openEdit(p)} title="Edit">
                           <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
                             <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
                             <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" stroke="currentColor" strokeWidth="1.5"/>
                           </svg>
                         </button>
+                        )}
+                        {isAdmin && (
                         <button className="action-btn action-btn-delete" onClick={() => setDeleteConfirm(p.id)} title="Delete">
                           <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
                             <path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                           </svg>
                         </button>
+                        )}
                       </div>
                     </td>
                   </tr>

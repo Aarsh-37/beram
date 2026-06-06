@@ -27,6 +27,7 @@ export default function RegisterPage() {
         setError(data.error || "Registration failed");
         return;
       }
+      localStorage.setItem("userRole", data.user.role);
       router.push("/dashboard");
       router.refresh();
     } catch {

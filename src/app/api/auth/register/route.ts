@@ -29,12 +29,15 @@ export async function POST(req: NextRequest) {
     const hashedPassword = await bcrypt.hash(password, 12);
     const user = await prisma.user.create({
       data: { name, email, password: hashedPassword },
-      select: { id: true, name: true, email: true },
+      select: { id: true, name: true, email: true, role: true },
     });
 
-    const token = signToken({ sub: user.id, email: user.email, name: user.name });
+    const token = signToken({ sub: user.id, email: user.email, name: user.name, role: user.role });
 
-    const response = NextResponse.json({ user }, { status: 201 });
+    const response = NextResponse.json(
+      { user: { id: user.id, name: user.name, email: user.email, role: user.role } },
+      { status: 201 }
+    );
     response.cookies.set("token", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",

@@ -9,6 +9,7 @@ export async function PUT(
 ) {
   const user = await getAuthUser();
   if (!user) return unauthorized();
+  if (user.role !== "ADMIN") return unauthorized();
 
   try {
     const { id } = await params;
@@ -40,6 +41,7 @@ export async function DELETE(
 ) {
   const user = await getAuthUser();
   if (!user) return unauthorized();
+  if (user.role !== "ADMIN") return unauthorized();
 
   try {
     const { id } = await params;

@@ -34,10 +34,10 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const token = signToken({ sub: user.id, email: user.email, name: user.name });
+    const token = signToken({ sub: user.id, email: user.email, name: user.name, role: user.role });
 
     const response = NextResponse.json(
-      { user: { id: user.id, name: user.name, email: user.email } },
+      { user: { id: user.id, name: user.name, email: user.email, role: user.role } },
       { status: 200 }
     );
     response.cookies.set("token", token, {

@@ -27,6 +27,7 @@ export default function LoginPage() {
         setError(data.error || "Login failed");
         return;
       }
+      localStorage.setItem("userRole", data.user.role);
       router.push("/dashboard");
       router.refresh();
     } catch {

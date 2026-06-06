@@ -38,6 +38,7 @@ export default function CategoriesPage() {
   const [formLoading, setFormLoading] = useState(false);
   const [deleteConfirm, setDeleteConfirm] = useState<Category | null>(null);
   const [deleteError, setDeleteError] = useState("");
+  const [isAdmin, setIsAdmin] = useState(false);
   const router = useRouter();
 
   async function fetchCategories() {
@@ -47,7 +48,10 @@ export default function CategoriesPage() {
     setLoading(false);
   }
 
-  useEffect(() => { fetchCategories(); }, []);
+  useEffect(() => { 
+    setIsAdmin(localStorage.getItem("userRole") === "ADMIN");
+    fetchCategories(); 
+  }, []);
 
   function openAdd() {
     setEditing(null);
@@ -102,12 +106,14 @@ export default function CategoriesPage() {
           <h1 className="page-title">Categories</h1>
           <p className="page-subtitle">Organise your products into categories</p>
         </div>
+        {isAdmin && (
         <button id="add-category-btn" className="btn btn-primary" onClick={openAdd}>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
             <path d="M12 5v14M5 12h14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
           </svg>
           Add Category
         </button>
+        )}
       </div>
 
       {loading ? (
@@ -133,12 +139,15 @@ export default function CategoriesPage() {
                   {c.name.charAt(0).toUpperCase()}
                 </div>
                 <div className="category-actions">
+                  {isAdmin && (
                   <button className="action-btn action-btn-edit" onClick={(e) => { e.stopPropagation(); openEdit(c); }} title="Edit">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
                       <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
                       <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" stroke="currentColor" strokeWidth="1.5"/>
                     </svg>
                   </button>
+                  )}
+                  {isAdmin && (
                   <button
                     className="action-btn action-btn-delete"
                     onClick={(e) => { e.stopPropagation(); setDeleteConfirm(c); setDeleteError(""); }}
@@ -148,6 +157,7 @@ export default function CategoriesPage() {
                       <path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
                   </button>
+                  )}
                 </div>
               </div>
               <h3 className="category-name">{c.name}</h3>
