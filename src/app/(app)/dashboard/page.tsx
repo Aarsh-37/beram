@@ -83,7 +83,6 @@ export default function DashboardPage() {
           <h1 className="page-title">Dashboard</h1>
           <p className="page-subtitle">Real-time overview of your inventory</p>
         </div>
-        <span className="page-badge">Live</span>
       </div>
 
       {/* Summary Cards */}
