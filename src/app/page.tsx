@@ -17,7 +17,7 @@ export default function LandingPage() {
     <div className="landing-page">
       <nav className="landing-nav">
         <Link href="/" className="landing-logo" style={{ textDecoration: 'none' }}>
-          <Image src="/logo1.png" alt="Inventra Logo" width={40} height={40} priority style={{ objectFit: 'contain' }} />
+          <Image src="/logo.png" alt="Inventra Logo" width={40} height={40} priority style={{ objectFit: 'contain' }} />
           <span className="landing-logo-text">Inventra</span>
         </Link>
         <div className="landing-nav-actions">

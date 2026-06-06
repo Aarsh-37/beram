@@ -87,7 +87,7 @@ export default function Sidebar() {
 
       <aside className={`sidebar ${open ? "sidebar-open" : ""}`}>
         <Link href="/" className="sidebar-logo" style={{ textDecoration: 'none' }}>
-          <Image src="/logo1.png" alt="Inventra Logo" width={36} height={36} priority style={{ objectFit: 'contain' }} />
+          <Image src="/logo.png" alt="Inventra Logo" width={36} height={36} priority style={{ objectFit: 'contain' }} />
           <span className="sidebar-logo-text">Inventra</span>
         </Link>
 

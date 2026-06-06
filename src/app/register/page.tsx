@@ -41,7 +41,7 @@ export default function RegisterPage() {
       <div className="auth-glow" />
       <div className="auth-card">
         <Link href="/" className="auth-logo" style={{ textDecoration: 'none' }}>
-          <Image src="/logo1.png" alt="Inventra Logo" width={48} height={48} priority style={{ objectFit: 'contain' }} />
+          <Image src="/logo.png" alt="Inventra Logo" width={48} height={48} priority style={{ objectFit: 'contain' }} />
           <span className="auth-logo-text">Inventra</span>
         </Link>
 
