@@ -111,6 +111,12 @@ export default function ProductsPage() {
   useEffect(() => { setPage(1); }, [search, categoryFilter, statusFilter, limit]);
 
   useEffect(() => {
+    if (page > totalPages && totalPages > 0) {
+      setPage(totalPages);
+    }
+  }, [page, totalPages]);
+
+  useEffect(() => {
     Promise.all([
       fetch("/api/categories").then((r) => r.json()),
     ]).then(([cats]) => {
@@ -352,21 +358,23 @@ export default function ProductsPage() {
               </tbody>
             </table>
             
-            <div className="pagination">
-              <span className="pagination-info">
-                Showing {products.length > 0 ? (page - 1) * limit + 1 : 0} to {Math.min(page * limit, totalProducts)} of {totalProducts}
-              </span>
-              <div className="pagination-controls">
-                <select className="form-input form-select" value={limit} onChange={(e) => setLimit(Number(e.target.value))}>
-                  <option value={10}>10 per page</option>
-                  <option value={20}>20 per page</option>
-                  <option value={50}>50 per page</option>
-                </select>
-                <button className="btn btn-ghost" disabled={page <= 1} onClick={() => setPage(page - 1)}>Prev</button>
-                <span className="pagination-page">{page} / {totalPages}</span>
-                <button className="btn btn-ghost" disabled={page >= totalPages} onClick={() => setPage(page + 1)}>Next</button>
+            {totalProducts > 10 && (
+              <div className="pagination">
+                <span className="pagination-info">
+                  Showing {products.length > 0 ? (page - 1) * limit + 1 : 0} to {Math.min(page * limit, totalProducts)} of {totalProducts}
+                </span>
+                <div className="pagination-controls">
+                  <select className="form-input form-select" value={limit} onChange={(e) => setLimit(Number(e.target.value))}>
+                    <option value={10}>10 per page</option>
+                    <option value={20}>20 per page</option>
+                    <option value={50}>50 per page</option>
+                  </select>
+                  <button className="btn btn-ghost" disabled={page <= 1} onClick={() => setPage(page - 1)}>Prev</button>
+                  <span className="pagination-page">{page} / {totalPages}</span>
+                  <button className="btn btn-ghost" disabled={page >= totalPages} onClick={() => setPage(page + 1)}>Next</button>
+                </div>
               </div>
-            </div>
+            )}
           </div>
         )}
       </div>
