@@ -60,10 +60,7 @@ export default function ProductsPage() {
   const [search, setSearch] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
-  const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
   const [totalProducts, setTotalProducts] = useState(0);
-  const [limit, setLimit] = useState(10);
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
@@ -99,16 +96,11 @@ export default function ProductsPage() {
     if (search) params.set("search", search);
     if (categoryFilter) params.set("categoryId", categoryFilter);
     if (statusFilter) params.set("status", statusFilter);
-    params.set("page", String(page));
-    params.set("limit", String(limit));
     const res = await fetch(`/api/products?${params}`);
     const data = await res.json();
     setProducts(data.data || []);
-    setTotalPages(data.totalPages || 1);
     setTotalProducts(data.total || 0);
-  }, [search, categoryFilter, statusFilter, page, limit]);
-
-  useEffect(() => { setPage(1); }, [search, categoryFilter, statusFilter, limit]);
+  }, [search, categoryFilter, statusFilter]);
 
   useEffect(() => {
     Promise.all([
@@ -351,22 +343,6 @@ export default function ProductsPage() {
                 ))}
               </tbody>
             </table>
-            
-            <div className="pagination">
-              <span className="pagination-info">
-                Showing {products.length > 0 ? (page - 1) * limit + 1 : 0} to {Math.min(page * limit, totalProducts)} of {totalProducts}
-              </span>
-              <div className="pagination-controls">
-                <select className="form-input form-select" value={limit} onChange={(e) => setLimit(Number(e.target.value))}>
-                  <option value={10}>10 per page</option>
-                  <option value={20}>20 per page</option>
-                  <option value={50}>50 per page</option>
-                </select>
-                <button className="btn btn-ghost" disabled={page <= 1} onClick={() => setPage(page - 1)}>Prev</button>
-                <span className="pagination-page">{page} / {totalPages}</span>
-                <button className="btn btn-ghost" disabled={page >= totalPages} onClick={() => setPage(page + 1)}>Next</button>
-              </div>
-            </div>
           </div>
         )}
       </div>
@@ -515,11 +491,6 @@ export default function ProductsPage() {
         .table-row:hover { background: var(--bg-secondary); }
         .table-row:last-child td { border-bottom: none; }
         .table-loading { padding: 1.5rem; }
-
-        .pagination { display: flex; align-items: center; justify-content: space-between; padding: 1rem; border-top: 1px solid var(--border); flex-wrap: wrap; gap: 1rem; }
-        .pagination-info { font-size: 0.85rem; color: var(--text-secondary); }
-        .pagination-controls { display: flex; align-items: center; gap: 0.5rem; }
-        .pagination-page { font-size: 0.85rem; font-weight: 500; color: var(--text-primary); margin: 0 0.5rem; }
 
         .product-name { font-size: 0.875rem; font-weight: 500; color: var(--text-primary); }
         .sku-badge { background: var(--bg-secondary); color: var(--text-secondary); font-size: 0.75rem; padding: 0.2rem 0.5rem; border-radius: 4px; font-family: monospace; border: 1px solid var(--border); }

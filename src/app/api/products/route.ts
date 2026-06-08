@@ -13,10 +13,6 @@ export async function GET(req: NextRequest) {
     const categoryId = searchParams.get("categoryId") || "";
     const status = searchParams.get("status") || ""; // "low" | "out" | "in"
 
-    const page = parseInt(searchParams.get("page") || "1");
-    const limit = parseInt(searchParams.get("limit") || "10");
-    const skip = (page - 1) * limit;
-
     const whereClause: any = {
       AND: [
         search
@@ -35,16 +31,12 @@ export async function GET(req: NextRequest) {
       whereClause.AND.push({ quantity: 0 });
     }
 
-    const total = await prisma.product.count({ where: whereClause });
-
     let products = await prisma.product.findMany({
       where: whereClause,
       include: {
         category: { select: { id: true, name: true } },
       },
       orderBy: { createdAt: "desc" },
-      skip: status && status !== "out" ? undefined : skip,
-      take: status && status !== "out" ? undefined : limit,
     });
 
     if (status === "low") {
@@ -53,23 +45,9 @@ export async function GET(req: NextRequest) {
       products = products.filter((p) => p.quantity > p.lowStockThreshold);
     }
 
-    // If we did in-memory filtering, we need to paginate the result now
-    if (status === "low" || status === "in") {
-      const filteredTotal = products.length;
-      products = products.slice(skip, skip + limit);
-      return NextResponse.json({
-        data: products,
-        total: filteredTotal,
-        page,
-        totalPages: Math.ceil(filteredTotal / limit),
-      });
-    }
-
     return NextResponse.json({
       data: products,
-      total,
-      page,
-      totalPages: Math.ceil(total / limit),
+      total: products.length,
     });
   } catch {
     return serverError();
