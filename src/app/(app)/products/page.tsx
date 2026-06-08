@@ -60,8 +60,10 @@ function ProductsContent() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
+  const [searchInput, setSearchInput] = useState("");
   const [categoryFilter, setCategoryFilter] = useState(searchParams?.get("categoryId") || "");
   const [statusFilter, setStatusFilter] = useState("");
+  const [isFetching, setIsFetching] = useState(false);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [totalProducts, setTotalProducts] = useState(0);
@@ -71,6 +73,11 @@ function ProductsContent() {
   useEffect(() => {
     setIsAdmin(localStorage.getItem("userRole") === "ADMIN");
   }, []);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setSearch(searchInput), 400);
+    return () => clearTimeout(timer);
+  }, [searchInput]);
 
   const [showProductModal, setShowProductModal] = useState(false);
   const [showStockModal, setShowStockModal] = useState(false);
@@ -92,6 +99,7 @@ function ProductsContent() {
   const [deleteError, setDeleteError] = useState("");
 
   const fetchProducts = useCallback(async () => {
+    setIsFetching(true);
     const params = new URLSearchParams();
     if (search) params.set("search", search);
     if (categoryFilter) params.set("categoryId", categoryFilter);
@@ -103,6 +111,7 @@ function ProductsContent() {
     setProducts(data.data || []);
     setTotalPages(data.totalPages || 1);
     setTotalProducts(data.total || 0);
+    setIsFetching(false);
   }, [search, categoryFilter, statusFilter, page, limit]);
 
   useEffect(() => { setPage(1); }, [search, categoryFilter, statusFilter, limit]);
@@ -246,8 +255,8 @@ function ProductsContent() {
             id="product-search"
             className="form-input search-input"
             placeholder="Search by name or SKU..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
           />
         </div>
         <select
@@ -275,7 +284,7 @@ function ProductsContent() {
       </div>
 
       {/* Table */}
-      <div className="table-card">
+      <div className="table-card" style={{ opacity: isFetching && !loading ? 0.6 : 1, transition: "opacity 0.2s" }}>
         {loading ? (
           <div className="table-loading">
             {Array.from({ length: 5 }).map((_, i) => (
