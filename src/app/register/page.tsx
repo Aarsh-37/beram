@@ -7,7 +7,7 @@ import Image from "next/image";
 
 export default function RegisterPage() {
   const router = useRouter();
-  const [form, setForm] = useState({ name: "", email: "", password: "" });
+  const [form, setForm] = useState({ name: "", email: "", password: "", role: "STAFF" });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -103,6 +103,35 @@ export default function RegisterPage() {
               autoComplete="new-password"
             />
             <span className="form-hint">At least 8 characters with one uppercase letter and one number</span>
+          </div>
+
+          <div className="form-group">
+            <label className="form-label">Role</label>
+            <div style={{ display: "flex", gap: "1rem", marginTop: "0.25rem" }}>
+              <label style={{ display: "flex", alignItems: "center", gap: "0.5rem", cursor: "pointer", color: "var(--text-primary)", fontSize: "0.9rem" }}>
+                <input
+                  type="radio"
+                  name="role"
+                  value="STAFF"
+                  checked={form.role === "STAFF"}
+                  onChange={(e) => setForm({ ...form, role: e.target.value })}
+                  style={{ accentColor: "var(--teal)", width: "16px", height: "16px", cursor: "pointer" }}
+                />
+                Staff
+              </label>
+              <label style={{ display: "flex", alignItems: "center", gap: "0.5rem", cursor: "pointer", color: "var(--text-primary)", fontSize: "0.9rem" }}>
+                <input
+                  type="radio"
+                  name="role"
+                  value="ADMIN"
+                  checked={form.role === "ADMIN"}
+                  onChange={(e) => setForm({ ...form, role: e.target.value })}
+                  style={{ accentColor: "var(--teal)", width: "16px", height: "16px", cursor: "pointer" }}
+                />
+                Admin
+              </label>
+            </div>
+            <span className="form-hint">Admins can manage products and categories. Staff can only adjust stock levels.</span>
           </div>
 
           <button
