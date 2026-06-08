@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 
 interface Category {
   id: string;
@@ -53,12 +54,13 @@ function Modal({
   );
 }
 
-export default function ProductsPage() {
+function ProductsContent() {
+  const searchParams = useSearchParams();
   const [products, setProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
-  const [categoryFilter, setCategoryFilter] = useState("");
+  const [categoryFilter, setCategoryFilter] = useState(searchParams?.get("categoryId") || "");
   const [statusFilter, setStatusFilter] = useState("");
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -68,11 +70,6 @@ export default function ProductsPage() {
 
   useEffect(() => {
     setIsAdmin(localStorage.getItem("userRole") === "ADMIN");
-    if (typeof window !== "undefined") {
-      const params = new URLSearchParams(window.location.search);
-      const catId = params.get("categoryId");
-      if (catId) setCategoryFilter(catId);
-    }
   }, []);
 
   const [showProductModal, setShowProductModal] = useState(false);
@@ -577,5 +574,13 @@ export default function ProductsPage() {
         .toggle-active-out { background: rgba(239,68,68,0.15); color: var(--red); }
       `}</style>
     </div>
+  );
+}
+
+export default function ProductsPage() {
+  return (
+    <Suspense fallback={<div className="page" style={{ padding: "4rem", textAlign: "center" }}><div className="btn-spinner" style={{ margin: "0 auto", width: 32, height: 32, borderTopColor: "var(--teal)" }} /></div>}>
+      <ProductsContent />
+    </Suspense>
   );
 }
