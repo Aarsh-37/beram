@@ -35,17 +35,20 @@ export async function GET(req: NextRequest) {
       whereClause.AND.push({ quantity: 0 });
     }
 
-    const total = await prisma.product.count({ where: whereClause });
+    const [total, productsRaw] = await Promise.all([
+      prisma.product.count({ where: whereClause }),
+      prisma.product.findMany({
+        where: whereClause,
+        include: {
+          category: { select: { id: true, name: true } },
+        },
+        orderBy: { createdAt: "desc" },
+        skip: status && status !== "out" ? undefined : skip,
+        take: status && status !== "out" ? undefined : limit,
+      })
+    ]);
 
-    let products = await prisma.product.findMany({
-      where: whereClause,
-      include: {
-        category: { select: { id: true, name: true } },
-      },
-      orderBy: { createdAt: "desc" },
-      skip: status && status !== "out" ? undefined : skip,
-      take: status && status !== "out" ? undefined : limit,
-    });
+    let products = productsRaw;
 
     if (status === "low") {
       products = products.filter((p) => p.quantity > 0 && p.quantity <= p.lowStockThreshold);
