@@ -82,7 +82,6 @@ export async function GET(req: NextRequest) {
 export async function POST(req: NextRequest) {
   const user = await getAuthUser();
   if (!user) return unauthorized();
-  if (user.role !== "ADMIN") return unauthorized();
 
   try {
     const body = await req.json();

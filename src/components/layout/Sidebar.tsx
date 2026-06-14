@@ -57,9 +57,11 @@ export default function Sidebar() {
   const [loggingOut, setLoggingOut] = useState(false);
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
     setMounted(true);
+    setIsAdmin(localStorage.getItem("userRole") === "ADMIN");
   }, []);
 
   async function handleLogout() {
@@ -109,6 +111,21 @@ export default function Sidebar() {
               </Link>
             );
           })}
+          {mounted && (
+            <Link
+              href="/users"
+              className={`sidebar-link ${pathname.startsWith("/users") ? "sidebar-link-active" : ""}`}
+              onClick={() => setOpen(false)}
+            >
+              <span className="sidebar-link-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                  <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  <circle cx="9" cy="7" r="4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </span>
+              Users
+            </Link>
+          )}
         </nav>
 
         <div className="sidebar-bottom">

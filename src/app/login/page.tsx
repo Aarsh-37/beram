@@ -7,7 +7,7 @@ import Image from "next/image";
 
 export default function LoginPage() {
   const router = useRouter();
-  const [form, setForm] = useState({ email: "", password: "" });
+  const [form, setForm] = useState({ email: "", password: "", role: "STAFF" });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -90,6 +90,53 @@ export default function LoginPage() {
             />
           </div>
 
+          <div className="form-group" style={{ marginBottom: "0.5rem" }}>
+            <label className="form-label">Sign in as</label>
+            <div className="role-options">
+              <label className={`role-card ${form.role === "ADMIN" ? "role-active" : ""}`}>
+                <input
+                  type="radio"
+                  name="role"
+                  value="ADMIN"
+                  checked={form.role === "ADMIN"}
+                  onChange={(e) => setForm({ ...form, role: e.target.value })}
+                  style={{ display: "none" }}
+                />
+                <div className="role-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                    <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </div>
+                <div>
+                  <div className="role-title">Admin</div>
+                  <div className="role-desc">Full access</div>
+                </div>
+              </label>
+              
+              <label className={`role-card ${form.role === "STAFF" ? "role-active" : ""}`}>
+                <input
+                  type="radio"
+                  name="role"
+                  value="STAFF"
+                  checked={form.role === "STAFF"}
+                  onChange={(e) => setForm({ ...form, role: e.target.value })}
+                  style={{ display: "none" }}
+                />
+                <div className="role-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                    <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                    <circle cx="9" cy="7" r="4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </div>
+                <div>
+                  <div className="role-title">Staff</div>
+                  <div className="role-desc">Limited access</div>
+                </div>
+              </label>
+            </div>
+          </div>
+
           <button
             id="login-submit"
             type="submit"
@@ -110,10 +157,10 @@ export default function LoginPage() {
             type="button"
             className="auth-demo-fill"
             onClick={() =>
-              setForm({ email: "demo@inventra.dev", password: "Demo1234!" })
+              setForm({ email: "staff@inventra.dev", password: "Demo1234!", role: "STAFF" })
             }
           >
-            Fill demo credentials
+            Fill staff credentials
           </button>
         </div>
 
@@ -227,6 +274,28 @@ export default function LoginPage() {
           border-color: var(--teal);
           box-shadow: 0 0 0 3px var(--teal-glow);
         }
+        .role-options { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        .role-card {
+          border: 1px solid var(--border);
+          border-radius: var(--radius-sm);
+          padding: 1rem;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+          transition: all 0.2s;
+          background: var(--bg-secondary);
+        }
+        .role-card:hover { border-color: rgba(6,182,212,0.4); }
+        .role-active {
+          border-color: var(--teal);
+          background: var(--teal-glow);
+          box-shadow: 0 0 0 1px var(--teal);
+        }
+        .role-icon { color: var(--text-muted); display: flex; }
+        .role-active .role-icon { color: var(--teal); }
+        .role-title { font-size: 0.875rem; font-weight: 600; color: var(--text-primary); }
+        .role-desc { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.1rem; }
         .btn {
           display: inline-flex;
           align-items: center;
